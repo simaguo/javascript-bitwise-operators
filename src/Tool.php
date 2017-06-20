@@ -315,7 +315,9 @@ class Tool
             $bit = $bit >= 0 ? $bit : 32+$bit;
             $cn = self::get32ComplementNumber($a);
             $cn = substr(str_pad($cn, 32 + $bit, 0, STR_PAD_LEFT), 0, 32);
-            return self::getValue($cn);
+            
+			$value = self::getValue($cn);
+			return $value >= 0 ? $value : pow(2,32)+$value;
         }
     }
 }
