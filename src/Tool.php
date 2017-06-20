@@ -14,7 +14,7 @@ class Tool
 
     private static function hasV8js()
     {
-        return false;
+        //return false;
         return extension_loaded('v8js');
     }
 
