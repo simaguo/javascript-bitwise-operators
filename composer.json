@@ -1,0 +1,25 @@
+{
+  "name": "simaguo/javascript-bitwise-operators",
+  "description": "64位操作系统下，php实现javascript的位操作",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "simaguo",
+      "email": "lyolzj@sina.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~6.2.0",
+    "ext-v8js": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Simaguo\\JavascriptBitwiseOperators\\": "src/"
+    }
+  }
+}
+
