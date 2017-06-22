@@ -1,9 +1,12 @@
 64位OS下，php实现JS的位操作。
 
-####安装
-`composer require simaguo/javascript-bitwise-operators`
+安装
+----
 
-####使用
+    composer require simaguo/javascript-bitwise-operators
+
+使用
+----
 
     use Simaguo\JavascriptBitwiseOperators\Tool;
     $a=1024;
