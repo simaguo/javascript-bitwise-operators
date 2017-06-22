@@ -50,7 +50,9 @@ class NotOperatorTest extends TestCase
         $this->assertEquals(Tool::notOperator(pow(2, 53)), $this->v8NotOperator(pow(2, 53)));
         $this->assertEquals(Tool::notOperator(-pow(2, 53)), $this->v8NotOperator(-pow(2, 53)));
 
-        $this->expectException(RangeException::class);
+        if (!Tool::hasV8js()) {
+            $this->expectException(RangeException::class);
+        }
         Tool::notOperator(pow(2, 53) + 1);
         Tool::notOperator(-pow(2, 53) - 1);
     }

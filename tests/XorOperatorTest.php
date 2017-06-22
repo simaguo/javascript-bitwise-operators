@@ -52,8 +52,10 @@ class XorOperatorTest extends TestCase
         $v = 1023;
         $this->assertEquals(Tool::XorOperator(pow(2, 53),$v), $this->v8XorOperator(pow(2, 53),$v));
         $this->assertEquals(Tool::XorOperator(-pow(2, 53),$v), $this->v8XorOperator(-pow(2, 53),$v));
+        if(!Tool::hasV8js()){
+            $this->expectException(RangeException::class);
+        }
 
-        $this->expectException(RangeException::class);
         Tool::XorOperator(pow(2, 53) + 1,$v);
         Tool::XorOperator(-pow(2, 53) - 1,$v);
     }

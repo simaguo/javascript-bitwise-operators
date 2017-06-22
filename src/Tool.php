@@ -10,9 +10,9 @@ namespace Simaguo\JavascriptBitwiseOperators;
  */
 class Tool
 {
+    private static $v8;
 
-
-    private static function hasV8js()
+    public static function hasV8js()
     {
         //return false;
         return extension_loaded('v8js');
@@ -147,7 +147,10 @@ class Tool
     {
 
         if (self::hasV8js()) {
-            $v8 = new \V8Js();
+            if(!self::$v8){
+                self::$v8 = new \V8Js();
+            }
+            $v8 = self::$v8;
             $js = "$a >> 0";
             return $v8->executeString($js);
         } else {
@@ -167,7 +170,10 @@ class Tool
     public static function notOperator($a)
     {
         if (self::hasV8js()) {
-            $v8 = new \V8Js();
+            if(!self::$v8){
+                self::$v8 = new \V8Js();
+            }
+            $v8 = self::$v8;
             $js = "~$a";
             return $v8->executeString($js);
         } else {
@@ -188,7 +194,10 @@ class Tool
     public static function andOperator($a, $b)
     {
         if (self::hasV8js()) {
-            $v8 = new \V8Js();
+            if(!self::$v8){
+                self::$v8 = new \V8Js();
+            }
+            $v8 = self::$v8;
             $js = "$a & $b";
             return $v8->executeString($js);
         } else {
@@ -214,7 +223,10 @@ class Tool
     public static function orOperator($a, $b)
     {
         if (self::hasV8js()) {
-            $v8 = new \V8Js();
+            if(!self::$v8){
+                self::$v8 = new \V8Js();
+            }
+            $v8 = self::$v8;
             $js = "$a | $b";
             return $v8->executeString($js);
         } else {
@@ -240,7 +252,10 @@ class Tool
     public static function xorOperator($a, $b)
     {
         if (self::hasV8js()) {
-            $v8 = new \V8Js();
+            if(!self::$v8){
+                self::$v8 = new \V8Js();
+            }
+            $v8 = self::$v8;
             $js = "$a ^ $b";
             return $v8->executeString($js);
         } else {
@@ -267,7 +282,10 @@ class Tool
     public static function shiftLeftOperator($a, $bit)
     {
         if (self::hasV8js()) {
-            $v8 = new \V8Js();
+            if(!self::$v8){
+                self::$v8 = new \V8Js();
+            }
+            $v8 = self::$v8;
             $js = "$a << $bit";
             return $v8->executeString($js);
         } else {
@@ -285,7 +303,10 @@ class Tool
     public static function shiftRightOperator($a, $bit)
     {
         if (self::hasV8js()) {
-            $v8 = new \V8Js();
+            if(!self::$v8){
+                self::$v8 = new \V8Js();
+            }
+            $v8 = self::$v8;
             $js = "$a >> $bit";
             return $v8->executeString($js);
         } else {
@@ -305,7 +326,10 @@ class Tool
     public static function unSignedShiftRightOperator($a, $bit)
     {
         if (self::hasV8js()) {
-            $v8 = new \V8Js();
+            if(!self::$v8){
+                self::$v8 = new \V8Js();
+            }
+            $v8 = self::$v8;
             $js = "$a >>> $bit";
             return $v8->executeString($js);
         } else {

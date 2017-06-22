@@ -49,7 +49,9 @@ class ToInt32Test extends TestCase
         $this->assertEquals(Tool::toInt32(pow(2, 53)), $this->v8ToInt32(pow(2, 53)));
         $this->assertEquals(Tool::toInt32(-pow(2, 53)), $this->v8ToInt32(-pow(2, 53)));
 
-        $this->expectException(RangeException::class);
+        if (!Tool::hasV8js()) {
+            $this->expectException(RangeException::class);
+        }
         Tool::toInt32(pow(2, 53) + 1);
         Tool::toInt32(-pow(2, 53) - 1);
     }

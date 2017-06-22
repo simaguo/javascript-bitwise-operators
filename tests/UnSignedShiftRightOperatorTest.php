@@ -54,8 +54,9 @@ class UnSignedShiftRightOperatorTest extends TestCase
         $v = 1023;
         $this->assertEquals(Tool::unSignedShiftRightOperator(pow(2, 53),$v), $this->v8UnSignedShiftRightOperator(pow(2, 53),$v));
         $this->assertEquals(Tool::unSignedShiftRightOperator(-pow(2, 53),$v), $this->v8UnSignedShiftRightOperator(-pow(2, 53),$v));
-
-        $this->expectException(RangeException::class);
+        if(!Tool::hasV8js()){
+            $this->expectException(RangeException::class);
+        }
         Tool::unSignedShiftRightOperator(pow(2, 53) + 1,$v);
         Tool::unSignedShiftRightOperator(-pow(2, 53) - 1,$v);
     }
