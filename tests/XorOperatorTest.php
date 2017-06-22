@@ -25,7 +25,7 @@ class XorOperatorTest extends TestCase
             $end = (pow(2, 31) - 1) * pow(2, $j) + 10;
             for ($i = $start; $i <= $end; $i++) {
                 $v = mt_rand(-1-pow(2,31),pow(2,31));
-                $a = Tool::XorOperator($i,$v);
+                $a = Tool::xorOperator($i,$v);
                 $b = $this->v8XorOperator($i,$v);
                 $this->assertEquals($a, $b, $j . ':' . $i . ':' . $v);
             }
@@ -40,7 +40,7 @@ class XorOperatorTest extends TestCase
             $end = (pow(2, 31) - 1) * pow(2, $j) + 10;
             for ($i = -$start; $i >= -$end; $i--) {
                 $v = mt_rand(-1-pow(2,31),pow(2,31));
-                $a = Tool::XorOperator($i,$v);
+                $a = Tool::xorOperator($i,$v);
                 $b = $this->v8XorOperator($i,$v);
                 $this->assertEquals($a, $b, $j . ':' . $i . ':' . $v);
             }
@@ -50,13 +50,13 @@ class XorOperatorTest extends TestCase
     public function testException()
     {
         $v = 1023;
-        $this->assertEquals(Tool::XorOperator(pow(2, 53),$v), $this->v8XorOperator(pow(2, 53),$v));
-        $this->assertEquals(Tool::XorOperator(-pow(2, 53),$v), $this->v8XorOperator(-pow(2, 53),$v));
+        $this->assertEquals(Tool::xorOperator(pow(2, 53),$v), $this->v8XorOperator(pow(2, 53),$v));
+        $this->assertEquals(Tool::xorOperator(-pow(2, 53),$v), $this->v8XorOperator(-pow(2, 53),$v));
         if(!Tool::hasV8js()){
             $this->expectException(RangeException::class);
         }
 
-        Tool::XorOperator(pow(2, 53) + 1,$v);
-        Tool::XorOperator(-pow(2, 53) - 1,$v);
+        Tool::xorOperator(pow(2, 53) + 1,$v);
+        Tool::xorOperator(-pow(2, 53) - 1,$v);
     }
 }

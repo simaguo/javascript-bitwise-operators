@@ -17,4 +17,4 @@
     Tool::shiftLeftOperator($a, $b);//$a << $b
     Tool::shiftRightOperator($a, $b);//$a >> $b
     Tool::unSignedShiftRightOperator($a,$b);//$a >>> $b
-    Tool::XorOperator($a,$b);////$a ^ $b
+    Tool::xorOperator($a,$b);//$a ^ $b
