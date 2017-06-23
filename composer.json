@@ -1,6 +1,6 @@
 {
   "name": "simaguo/javascript-bitwise-operators",
-  "description": "64位操作系统下，php实现javascript的位操作",
+  "description": "In the 64-bit operating system, php to achieve javascript bitwise operation",
   "type": "library",
   "license": "MIT",
   "authors": [
