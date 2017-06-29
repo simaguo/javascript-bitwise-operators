@@ -1,6 +1,6 @@
 {
   "name": "simaguo/javascript-bitwise-operators",
-  "description": "In the 64-bit operating system, php to achieve javascript bitwise operation",
+  "description": "php to achieve javascript bitwise operation",
   "type": "library",
   "license": "MIT",
   "authors": [

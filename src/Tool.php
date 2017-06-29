@@ -154,10 +154,14 @@ class Tool
             $js = "$a >> 0";
             return $v8->executeString($js);
         } else {
-            self::checkNumber($a);
-            self::checkOS();
-            $cn = self::get32ComplementNumber($a);
-            return self::getValue($cn);
+            if(self::is64OS()){
+                self::checkNumber($a);
+                $cn = self::get32ComplementNumber($a);
+                return self::getValue($cn);
+            }else{
+                return intval($a);
+            }
+
         }
 
     }
@@ -177,11 +181,15 @@ class Tool
             $js = "~$a";
             return $v8->executeString($js);
         } else {
-            self::checkNumber($a);
-            self::checkOS();
-            $cn = self::get32ComplementNumber($a);
-            $bin = self::reverse($cn);
-            return self::getValue($bin);
+            if(self::is64OS()){
+                self::checkNumber($a);
+                $cn = self::get32ComplementNumber($a);
+                $bin = self::reverse($cn);
+                return self::getValue($bin);
+            }else{
+                return ~$a;
+            }
+
         }
     }
 
@@ -201,16 +209,20 @@ class Tool
             $js = "$a & $b";
             return $v8->executeString($js);
         } else {
-            self::checkNumber(array($a, $b));
-            self::checkOS();
-            $acn = str_split(self::get32ComplementNumber($a));
-            $bcn = str_split(self::get32ComplementNumber($b));
-            $c = [];
-            for ($i = 0; $i < 32; $i++) {
-                $c[] = ($acn[$i] == $bcn[$i] && $acn[$i] == 1) ? 1 : 0;
+            if(self::is64OS()){
+                self::checkNumber(array($a, $b));
+                $acn = str_split(self::get32ComplementNumber($a));
+                $bcn = str_split(self::get32ComplementNumber($b));
+                $c = [];
+                for ($i = 0; $i < 32; $i++) {
+                    $c[] = ($acn[$i] == $bcn[$i] && $acn[$i] == 1) ? 1 : 0;
+                }
+                $c = implode('', $c);
+                return self::getValue($c);
+            }else{
+                return ($a & $b);
             }
-            $c = implode('', $c);
-            return self::getValue($c);
+
         }
     }
 
@@ -230,16 +242,20 @@ class Tool
             $js = "$a | $b";
             return $v8->executeString($js);
         } else {
-            self::checkNumber(array($a, $b));
-            self::checkOS();
-            $acn = str_split(self::get32ComplementNumber($a));
-            $bcn = str_split(self::get32ComplementNumber($b));
-            $c = [];
-            for ($i = 0; $i < 32; $i++) {
-                $c[] = ($acn[$i] == 1 || $bcn[$i] == 1) ? 1 : 0;
+            if(self::is64OS()){
+                self::checkNumber(array($a, $b));
+                $acn = str_split(self::get32ComplementNumber($a));
+                $bcn = str_split(self::get32ComplementNumber($b));
+                $c = [];
+                for ($i = 0; $i < 32; $i++) {
+                    $c[] = ($acn[$i] == 1 || $bcn[$i] == 1) ? 1 : 0;
+                }
+                $c = implode('', $c);
+                return self::getValue($c);
+            }else{
+                return ($a | $b);
             }
-            $c = implode('', $c);
-            return self::getValue($c);
+
         }
     }
 
@@ -259,16 +275,20 @@ class Tool
             $js = "$a ^ $b";
             return $v8->executeString($js);
         } else {
-            self::checkNumber(array($a, $b));
-            self::checkOS();
-            $acn = str_split(self::get32ComplementNumber($a));
-            $bcn = str_split(self::get32ComplementNumber($b));
-            $c = [];
-            for ($i = 0; $i < 32; $i++) {
-                $c[] = ($acn[$i] != $bcn[$i]) ? 1 : 0;
+            if(self::is64OS()){
+                self::checkNumber(array($a, $b));
+                $acn = str_split(self::get32ComplementNumber($a));
+                $bcn = str_split(self::get32ComplementNumber($b));
+                $c = [];
+                for ($i = 0; $i < 32; $i++) {
+                    $c[] = ($acn[$i] != $bcn[$i]) ? 1 : 0;
+                }
+                $c = implode('', $c);
+                return self::getValue($c);
+            }else{
+                return ($a ^ $b);
             }
-            $c = implode('', $c);
-            return self::getValue($c);
+
         }
     }
 
@@ -289,13 +309,18 @@ class Tool
             $js = "$a << $bit";
             return $v8->executeString($js);
         } else {
-            self::checkNumber($a);
-            self::checkOS();
+
             $bit = $bit % 32;
             $bit = $bit >= 0 ? $bit : 32+$bit;
-            $cn = self::get32ComplementNumber($a);
-            $cn = substr(str_pad($cn, 32 + $bit, 0, STR_PAD_RIGHT), -32);
-            return self::getValue($cn);
+            if(self::is64OS()){
+                self::checkNumber($a);
+                $cn = self::get32ComplementNumber($a);
+                $cn = substr(str_pad($cn, 32 + $bit, 0, STR_PAD_RIGHT), -32);
+                return self::getValue($cn);
+            }else{
+                return ($a << $bit);
+            }
+
         }
     }
 
@@ -310,15 +335,19 @@ class Tool
             $js = "$a >> $bit";
             return $v8->executeString($js);
         } else {
-            self::checkNumber($a);
-            self::checkOS();
             $bit = $bit % 32;
             $bit = $bit >= 0 ? $bit : 32+$bit;
-            $cn = self::get32ComplementNumber($a);
-            $sign = self::getSign($cn, true);
+            if(self::is64OS()){
+                self::checkNumber($a);
+                $cn = self::get32ComplementNumber($a);
+                $sign = self::getSign($cn, true);
 
-            $cn = substr(str_pad($cn, 32 + $bit, $sign, STR_PAD_LEFT), 0, 32);
-            return self::getValue($cn);
+                $cn = substr(str_pad($cn, 32 + $bit, $sign, STR_PAD_LEFT), 0, 32);
+                return self::getValue($cn);
+            }else{
+                return ($a >> $bit);
+            }
+
         }
     }
 
@@ -333,15 +362,23 @@ class Tool
             $js = "$a >>> $bit";
             return $v8->executeString($js);
         } else {
-            self::checkNumber($a);
-            self::checkOS();
             $bit = $bit % 32;
             $bit = $bit >= 0 ? $bit : 32+$bit;
-            $cn = self::get32ComplementNumber($a);
-            $cn = substr(str_pad($cn, 32 + $bit, 0, STR_PAD_LEFT), 0, 32);
-            
-			$value = self::getValue($cn);
-			return $value >= 0 ? $value : pow(2,32)+$value;
+            if(self::is64OS()){
+                self::checkNumber($a);
+
+                $cn = self::get32ComplementNumber($a);
+                $cn = substr(str_pad($cn, 32 + $bit, 0, STR_PAD_LEFT), 0, 32);
+
+                $value = self::getValue($cn);
+                return $value >= 0 ? $value : pow(2,32)+$value;
+            }else{
+                $cn = self::get32ComplementNumber($a);
+                $cn = str_pad(substr($cn,0,strlen($cn)-$bit),32,0,STR_PAD_LEFT);
+                $value = self::getValue($cn);
+                return $value;
+            }
+
         }
     }
 }
